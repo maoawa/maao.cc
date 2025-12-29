@@ -1,5 +1,17 @@
+html {
+  font-family: monospace;
+}
+
+html[lang='zh'] {
+  font-family: 'Noto Sans SC', 'Noto Sans', sans-serif, monospace;
+}
+
+html[lang='ja'] {
+  font-family: 'Noto Sans JP', 'Noto Sans', sans-serif, monospace;
+}
+
 body {
-    font-family: monospace;
+  font-weight: 500;
 }
 
 .title-container {

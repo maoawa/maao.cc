@@ -14,13 +14,6 @@ document.querySelector('#expand-intl').addEventListener('click', function () {
         <i class="fa-brands fa-github"></i>GitHub: <a href="https://github.com/maoawa" target="_blank" class="link">maoawa</a><br>
         <span class="comment">--------</span><br>
         <i class="fa-brands fa-instagram"></i>Instagram: <a href="https://www.instagram.com/winmemzqwq" target="_blank" class="link">@winmemzqwq</a><br>
-        <span class="comment"># 目前不可用, <a id="ig-dialog-open" class="link">点这里了解详情</a></span><br>
-        <mdui-dialog close-on-esc close-on-overlay-click class="ig-dialog">
-            <mdui-button id="ig-dialog-close">关闭</mdui-button><br>
-            Meta 因为我<strong>无法接收发给大陆手机号的验证码</strong>而<strong>禁止了我</strong>访问我的账户 (悲)<br>
-            我正在尝试解决，<strong>这可能需要一些时间</strong><br>
-            但是我还是很开心，因为你仍然能欣赏我以前发布的照片!
-        </mdui-dialog>
         <span class="comment">--------</span><br>
         <i class="fa-brands fa-steam"></i>Steam: <a href="https://steamcommunity.com/id/WinMEMZ" target="_blank" class="link">@winmemzqwq</a><br>
         <span class="comment">--------</span><br>
