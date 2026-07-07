@@ -26,8 +26,6 @@
     <meta name="twitter:description" content="Mars Contact Page. Really nice to meet you, keep in touch nya!">
     <meta name="twitter:image" content="https://maao.cc/og-image/maao.cc-og-en.png">
 
-    <script src="https://unpkg.com/@kuriyota/locale-matcher@0.1.0/dist/index.umd.js"></script>"
-    
     <style>
         body {
             display: flex;
@@ -53,15 +51,25 @@
         const preferredLang = localStorage.getItem('preferredLanguage');
         const browserLang = (navigator.language || navigator.userLanguage).split('-')[0];
     
+        function redirectToLanguage(lang) {
+            if (lang === 'en') {
+                window.location.href = './en/';
+            } else if (lang === 'zh') {
+                window.location.href = './zh/';
+            } else if (lang === 'it') {
+                window.location.href = './it/';
+            } else if (lang === 'ja' || lang === 'jp') {
+                window.location.href = './jp/';
+            } else {
+                window.location.href = './en/';
+            }
+        }
+    
         if (preferredLang) {
-            window.location.href = `./${preferredLang}/`;
+            redirectToLanguage(preferredLang);
         } else {
-            const supportedLanguages = ['en', 'zh', 'it', 'ja'];
-            const matchedLanguages = LocaleMatcher.matchLanguages(browserLang, supportedLanguages);
-            const bestMatch = matchedLanguages.length > 0 ? matchedLanguages[0] : 'en';
-            
-            window.location.href = `./${bestMatch}/`;
-            localStorage.setItem('preferredLanguage', bestMatch);
+            redirectToLanguage(browserLang);
+            localStorage.setItem('preferredLanguage', browserLang);
         }
     
         setTimeout(() => {
