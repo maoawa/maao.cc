@@ -1,0 +1,19 @@
+{
+  "name": "maao-cc",
+  "version": "2026.7.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1"
+  },
+  "dependencies": {
+    "@fortawesome/free-brands-svg-icons": "^7.3.0",
+    "@fortawesome/free-solid-svg-icons": "^7.3.0",
+    "@vitejs/plugin-vue": "^6.0.7",
+    "vite": "^8.1.3",
+    "vue": "^3.5.39",
+    "vue-i18n": "^11.4.6"
+  }
+}

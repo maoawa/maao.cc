@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting...</title>
+    <script>
+      const path = window.location.pathname.toLowerCase();
+      const locale = path.includes('/zh/')
+        ? 'zh'
+        : path.includes('/it/')
+          ? 'it'
+          : path.includes('/es/')
+            ? 'es'
+            : path.includes('/jp/') || path.includes('/ja/')
+              ? 'ja'
+              : 'en';
+      localStorage.setItem('preferredLanguage', locale);
+      window.location.replace('/');
+    </script>
+  </head>
+  <body>
+    <a href="/">Continue to maao.cc</a>
+  </body>
+</html>

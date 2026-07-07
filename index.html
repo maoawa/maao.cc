@@ -1,85 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Here's Mars | 这里是毛毛</title>
-    
-    <link rel="alternate" hreflang="en" href="https://maao.cc/en/">
-    <link rel="alternate" hreflang="zh" href="https://maao.cc/zh/">
-    <link rel="alternate" hreflang="it" href="https://maao.cc/it/">
-    <link rel="alternate" hreflang="ja" href="https://maao.cc/jp/">
-    <meta name="robots" content="noindex, follow">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Mars contact page. Friendly ways to reach maoawa." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://maao.cc/" />
+    <link rel="alternate" hreflang="en" href="https://maao.cc/" />
+    <link rel="alternate" hreflang="zh" href="https://maao.cc/" />
+    <link rel="alternate" hreflang="it" href="https://maao.cc/" />
+    <link rel="alternate" hreflang="ja" href="https://maao.cc/" />
+    <link rel="alternate" hreflang="es" href="https://maao.cc/" />
+    <link rel="alternate" hreflang="x-default" href="https://maao.cc/" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
-    <meta property="og:title" content="Here's Mars">
-    <meta property="og:description" content="Mars Contact Page. Really nice to meet you, keep in touch nya!">
-    <meta property="og:image" content="https://maao.cc/og-image/maao.cc-og-en.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:url" content="https://maao.cc/en/">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Here's Mars">
-    
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Here's Mars">
-    <meta name="twitter:description" content="Mars Contact Page. Really nice to meet you, keep in touch nya!">
-    <meta name="twitter:image" content="https://maao.cc/og-image/maao.cc-og-en.png">
+    <meta property="og:title" content="Here's Mars" />
+    <meta property="og:description" content="A simple contact page for Mars / maoawa." />
+    <meta property="og:image" content="https://maao.cc/og-image/maao.cc-og-en.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://maao.cc/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Here's Mars" />
 
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            flex-direction: column;
-            font-size: 1.5rem;
-        }
-        a {
-            color: #1E90FF;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <div class="redirect"></div>
-    <script>
-        const preferredLang = localStorage.getItem('preferredLanguage');
-        const browserLang = (navigator.language || navigator.userLanguage).split('-')[0];
-    
-        function redirectToLanguage(lang) {
-            if (lang === 'en') {
-                window.location.href = './en/';
-            } else if (lang === 'zh') {
-                window.location.href = './zh/';
-            } else if (lang === 'it') {
-                window.location.href = './it/';
-            } else if (lang === 'ja' || lang === 'jp') {
-                window.location.href = './jp/';
-            } else {
-                window.location.href = './en/';
-            }
-        }
-    
-        if (preferredLang) {
-            redirectToLanguage(preferredLang);
-        } else {
-            redirectToLanguage(browserLang);
-            localStorage.setItem('preferredLanguage', browserLang);
-        }
-    
-        setTimeout(() => {
-            document.querySelector('.redirect').innerHTML = `
-                <p>If you are not redirected, <a href="./en/">click here for English Page</a>.</p>
-                <p>如果您没有被重定向, <a href="./zh/">点击这里进入中文页面</a>.</p>
-                <p>Se non sei stato reindirizzato, <a href="./it/">clicca qui per accedere alla pagina in italiano</a>.</p>
-                <p>リダイレクトされない場合は、<a href="./jp/">こちらをクリックして日本語ページへ移動してください。</a></p>
-            `;
-        }, 3000);
-    </script>
-</body>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Here's Mars" />
+    <meta name="twitter:description" content="A simple contact page for Mars / maoawa." />
+    <meta name="twitter:image" content="https://maao.cc/og-image/maao.cc-og-en.png" />
+    <title>Here's Mars</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
