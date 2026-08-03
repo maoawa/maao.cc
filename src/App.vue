@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref, watchEffect } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch, watchEffect } from 'vue';
 import { useI18n } from 'vue-i18n';
 import {
   faBilibili,
@@ -28,6 +28,8 @@ import {
 
 const { locale, t, tm } = useI18n();
 const showQr = ref(false);
+const titleElement = ref(null);
+let titleResizeObserver;
 
 const languages = [
   { code: 'en', label: 'English' },
@@ -35,7 +37,38 @@ const languages = [
   { code: 'ja', label: '日本語' },
   { code: 'it', label: 'Italiano' },
   { code: 'es', label: 'Español' },
+  { code: 'hmn', label: 'Hmoob' },
 ];
+
+const autoLanguageLabels = {
+  en: 'Auto (English)',
+  zh: '自动 (中文)',
+  ja: '自動 (日本語)',
+  it: 'Automatico (Italiano)',
+  es: 'Automático (Español)',
+  hmn: 'Tsis siv neeg (Hmoob)',
+};
+
+function detectBrowserLocale() {
+  const supportedCodes = new Set(languages.map(({ code }) => code));
+
+  return (navigator.languages || [navigator.language])
+    .map((language) => language?.toLowerCase().split('-')[0])
+    .map((code) => code === 'jp' ? 'ja' : code)
+    .find((code) => supportedCodes.has(code)) || 'en';
+}
+
+const savedLanguage = localStorage.getItem('preferredLanguage');
+const languagePreference = ref(
+  savedLanguage === 'auto' || !languages.some(({ code }) => code === savedLanguage)
+    ? 'auto'
+    : savedLanguage,
+);
+const browserLocale = ref(detectBrowserLocale());
+const languageOptions = computed(() => [
+  { code: 'auto', label: autoLanguageLabels[browserLocale.value] },
+  ...languages,
+]);
 
 const contactValues = {
   discord: 'winmemzqwq',
@@ -155,8 +188,14 @@ watchEffect(() => {
 });
 
 function selectLocale(code) {
-  locale.value = code;
+  languagePreference.value = code;
+  locale.value = code === 'auto' ? browserLocale.value : code;
   localStorage.setItem('preferredLanguage', code);
+}
+
+function handleBrowserLanguageChange() {
+  browserLocale.value = detectBrowserLocale();
+  if (languagePreference.value === 'auto') locale.value = browserLocale.value;
 }
 
 function openQr() {
@@ -171,12 +210,38 @@ function handleKeydown(event) {
   if (event.key === 'Escape') closeQr();
 }
 
+function fitTitleToWidth() {
+  const title = titleElement.value;
+  if (!title) return;
+
+  title.style.removeProperty('--intro-title-size');
+  const availableWidth = title.clientWidth;
+  const widestLine = Math.max(...Array.from(title.children, (line) => line.scrollWidth));
+
+  if (widestLine > availableWidth) {
+    const defaultSize = Number.parseFloat(getComputedStyle(title).fontSize);
+    title.style.setProperty('--intro-title-size', `${defaultSize * (availableWidth - 1) / widestLine}px`);
+  }
+}
+
+watch(locale, async () => {
+  await nextTick();
+  fitTitleToWidth();
+});
+
 onMounted(() => {
   window.addEventListener('keydown', handleKeydown);
+  window.addEventListener('languagechange', handleBrowserLanguageChange);
+  titleResizeObserver = new ResizeObserver(fitTitleToWidth);
+  titleResizeObserver.observe(titleElement.value);
+  document.fonts?.ready.then(fitTitleToWidth);
+  fitTitleToWidth();
 });
 
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleKeydown);
+  window.removeEventListener('languagechange', handleBrowserLanguageChange);
+  titleResizeObserver?.disconnect();
 });
 
 function labelFor(item, field) {
@@ -234,8 +299,8 @@ function iconPaths(icon) {
           <path v-for="path in iconPaths(faLanguage)" :key="path" :d="path" />
         </svg>
         <span class="sr-only">{{ t('chooseLanguage') }}</span>
-        <select :value="locale" :aria-label="t('chooseLanguage')" @change="selectLocale($event.target.value)">
-          <option v-for="language in languages" :key="language.code" :value="language.code">
+        <select :value="languagePreference" :aria-label="t('chooseLanguage')" @change="selectLocale($event.target.value)">
+          <option v-for="language in languageOptions" :key="language.code" :value="language.code">
             {{ language.label }}
           </option>
         </select>
@@ -245,7 +310,7 @@ function iconPaths(icon) {
     <section class="hero">
       <div class="hero-copy">
         <p class="eyebrow">{{ t('eyebrow') }}</p>
-        <h1 class="rainbow-title">
+        <h1 ref="titleElement" class="rainbow-title">
           <span v-for="line in titleLines" :key="line">{{ line }}</span>
         </h1>
         <p class="intro-line">
@@ -466,6 +531,10 @@ function iconPaths(icon) {
         <a href="https://github.com/maoawa/maao.cc" target="_blank" rel="noopener noreferrer">github.com/maoawa/maao.cc</a>
       </p>
       <p class="footer-links">
+        <template v-if="isChinese">
+          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">黔ICP备2023012907号-3</a>
+          <span aria-hidden="true">·</span>
+        </template>
         <a href="https://icp.gov.moe/?keyword=20235320" target="_blank" rel="noopener noreferrer">{{ t('legal') }}</a>
         <span aria-hidden="true">·</span>
         <a href="https://im.maao.cc/" target="_blank" rel="noopener noreferrer">{{ t('footerMirror') }}</a>

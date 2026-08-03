@@ -175,7 +175,7 @@ p {
 h1 {
   max-width: 780px;
   margin-bottom: 8px;
-  font-size: clamp(2.85rem, 8.4vw, 6.25rem);
+  font-size: var(--intro-title-size, clamp(2.85rem, 8.4vw, 6.25rem));
   line-height: 1.08;
   letter-spacing: 0;
 }
@@ -190,6 +190,7 @@ h1 {
 
 .rainbow-title span {
   display: block;
+  white-space: nowrap;
   color: transparent;
   background: inherit;
   background-clip: text;
@@ -575,8 +576,12 @@ h2 {
     padding-top: 34px;
   }
 
+  .hero-copy {
+    padding-inline: 8px;
+  }
+
   h1 {
-    font-size: clamp(2.7rem, 15vw, 4rem);
+    font-size: var(--intro-title-size, clamp(2.7rem, 15vw, 4rem));
   }
 
   .terminal-body {

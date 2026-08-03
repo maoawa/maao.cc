@@ -12,9 +12,11 @@
           ? 'it'
           : path.includes('/es/')
             ? 'es'
-            : path.includes('/jp/') || path.includes('/ja/')
-              ? 'ja'
-              : 'en';
+            : path.includes('/hmn/')
+              ? 'hmn'
+              : path.includes('/jp/') || path.includes('/ja/')
+                ? 'ja'
+                : 'en';
       localStorage.setItem('preferredLanguage', locale);
       window.location.replace('/');
     </script>
