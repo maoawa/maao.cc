@@ -77,6 +77,7 @@ const messages = {
       steam: { label: 'Steam', detail: 'Games' },
     },
     projects: {
+      facemo: { label: 'Facemo Tracker', detail: 'Experimental camera boards for facial tracking in VR.' },
       vrchat: { label: 'VRChat Gallery', detail: 'Recording cherished moments with my friends in VRChat.' },
       cnBlog: { label: 'Chinese Blog', detail: 'Longer writing and notes in Chinese.' },
       enBlog: { label: 'English Blog', detail: 'English writing, thoughts, and updates.' },
@@ -135,6 +136,7 @@ const messages = {
       steam: { label: 'Steam', detail: '游戏' },
     },
     projects: {
+      facemo: { label: 'Facemo 面部追踪器', detail: '探索 VR 面部追踪的实验性摄像头开发板。' },
       vrchat: { label: 'VRChat 相册', detail: '记录我和朋友们在 VRChat 里的珍贵时刻。' },
       cnBlog: { label: '中文博客', detail: '我的中文长文、随笔和记录。' },
       enBlog: { label: '英文博客', detail: '英文写作、想法和近况。' },
@@ -193,6 +195,7 @@ const messages = {
       steam: { label: 'Steam', detail: 'Giochi' },
     },
     projects: {
+      facemo: { label: 'Facemo Tracker', detail: 'Schede sperimentali con videocamera per il tracciamento facciale in VR.' },
       vrchat: { label: 'Galleria VRChat', detail: 'Momenti preziosi con i miei amici in VRChat.' },
       cnBlog: { label: 'Blog cinese', detail: 'Scritti e appunti piu lunghi in cinese.' },
       enBlog: { label: 'Blog inglese', detail: 'Scritti, pensieri e aggiornamenti in inglese.' },
@@ -251,6 +254,7 @@ const messages = {
       steam: { label: 'Steam', detail: 'ゲーム' },
     },
     projects: {
+      facemo: { label: 'Facemo トラッカー', detail: 'VR でのフェイストラッキングを目指す実験的なカメラ基板。' },
       vrchat: { label: 'VRChat ギャラリー', detail: 'VRChat で友達と過ごした大切な瞬間を記録しています。' },
       cnBlog: { label: '中国語ブログ', detail: '中国語の長文、メモ、記録。' },
       enBlog: { label: '英語ブログ', detail: '英語の文章、考え、近況。' },
@@ -309,6 +313,7 @@ const messages = {
       steam: { label: 'Steam', detail: 'Juegos' },
     },
     projects: {
+      facemo: { label: 'Facemo Tracker', detail: 'Placas experimentales con cámara para el seguimiento facial en VR.' },
       vrchat: { label: 'Galeria de VRChat', detail: 'Momentos preciados con mis amigos en VRChat.' },
       cnBlog: { label: 'Blog chino', detail: 'Textos y notas mas largas en chino.' },
       enBlog: { label: 'Blog ingles', detail: 'Textos, ideas y novedades en ingles.' },
@@ -367,6 +372,7 @@ const messages = {
       steam: { label: 'Steam', detail: 'Games' },
     },
     projects: {
+      facemo: { label: 'Facemo Tracker', detail: 'Cov board koob yees duab sim rau kev taug qab ntsej muag hauv VR.' },
       vrchat: { label: 'VRChat Gallery', detail: 'Khaws cov sijhawm muaj nqis nrog kuv cov phooj ywg hauv VRChat.' },
       cnBlog: { label: 'Blog lus Suav', detail: 'Ntawv sau ntev thiab notes ua lus Suav.' },
       enBlog: { label: 'Blog lus Askiv', detail: 'Ntawv sau, kev xav thiab xov tshiab ua lus Askiv.' },

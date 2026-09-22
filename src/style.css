@@ -1,41 +1,25 @@
 :root {
-  color-scheme: light dark;
+  color-scheme: dark;
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  --bg: #f6f8fb;
-  --text: #111418;
-  --muted: #64707f;
-  --line: rgba(17, 20, 24, 0.12);
-  --panel: rgba(255, 255, 255, 0.74);
-  --panel-solid: #ffffff;
-  --terminal: #111418;
-  --terminal-text: #f3d7ff;
-  --purple: #800080;
-  --purple-soft: #b350b3;
-  --purple-deep: #4d004d;
-  --accent: #800080;
-  --accent-2: #c05ac0;
-  --value-accent: #ff4dff;
+  --bg: #131118;
+  --text: #f0edf6;
+  --muted: #a69eb5;
+  --line: #31293f;
+  --panel: #191522;
+  --panel-solid: #241c30;
+  --terminal: #14111c;
+  --terminal-text: #c4b9d8;
+  --accent: #c084fc;
+  --accent-hover: #d8b4fe;
+  --accent-dark: #160c26;
+  --icon-bg: #231a33;
+  --value-accent: var(--accent);
   --section-x: 34px;
-  --shadow: 0 24px 70px rgba(42, 54, 71, 0.14);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0c0f14;
-    --text: #f5f7fb;
-    --muted: #a2adbb;
-    --line: rgba(245, 247, 251, 0.14);
-    --panel: rgba(24, 29, 38, 0.72);
-    --panel-solid: #171c25;
-    --terminal: #06080b;
-    --terminal-text: #bdf5dc;
-    --value-accent: #ff66ff;
-    --shadow: 0 28px 80px rgba(0, 0, 0, 0.36);
-  }
+  --shadow: 0 28px 80px rgba(0, 0, 0, 0.36);
 }
 
 * {
@@ -49,10 +33,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background:
-    radial-gradient(circle at 16% 12%, rgba(128, 0, 128, 0.22), transparent 30%),
-    radial-gradient(circle at 84% 18%, rgba(192, 90, 192, 0.16), transparent 26%),
-    linear-gradient(135deg, var(--bg), color-mix(in srgb, var(--bg) 88%, #ffffff));
+  background: var(--bg);
   color: var(--text);
 }
 
@@ -64,6 +45,13 @@ a {
 button,
 select {
   font: inherit;
+}
+
+a:focus-visible,
+button:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
 }
 
 .site-shell {
@@ -88,6 +76,7 @@ select {
 
 .topbar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
@@ -127,20 +116,23 @@ svg {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  color: white;
-  background: linear-gradient(135deg, var(--purple), var(--accent-2));
+  color: var(--accent);
+  background: var(--icon-bg);
 }
 
 .language-picker {
   display: inline-flex;
+  flex-shrink: 0;
   align-items: center;
+  margin-left: auto;
   gap: 8px;
   border-radius: 999px;
   padding: 8px 12px;
 }
 
 .language-picker select {
-  width: 126px;
+  width: auto;
+  padding-inline-end: 8px;
   border: 0;
   outline: 0;
   color: var(--text);
@@ -180,21 +172,14 @@ h1 {
   letter-spacing: 0;
 }
 
-.rainbow-title {
+.intro-title {
   padding-block: 0.06em 0.12em;
-  color: transparent;
-  background: linear-gradient(90deg, #ff3b30, #ff9500, #ffcc00, #34c759, #00c7be, #007aff, #af52de, #ff2d55);
-  background-clip: text;
-  -webkit-background-clip: text;
+  color: var(--accent);
 }
 
-.rainbow-title span {
+.intro-title span {
   display: block;
   white-space: nowrap;
-  color: transparent;
-  background: inherit;
-  background-clip: text;
-  -webkit-background-clip: text;
 }
 
 h2 {
@@ -241,8 +226,8 @@ h2 {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #28c840;
-  box-shadow: 0 0 0 8px rgba(40, 200, 64, 0.14);
+  background: var(--accent);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 14%, transparent);
 }
 
 .terminal-panel {
@@ -258,7 +243,7 @@ h2 {
   display: flex;
   gap: 8px;
   padding: 14px 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid var(--line);
 }
 
 .terminal-header span {
@@ -291,7 +276,7 @@ h2 {
 }
 
 .terminal-body span {
-  color: #efa7ef;
+  color: var(--accent);
 }
 
 .terminal-body img {
@@ -330,7 +315,7 @@ h2 {
 }
 
 .project-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .contact-card {
@@ -355,7 +340,7 @@ h2 {
 .contact-card:hover,
 .contact-card:focus-within {
   transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--text) 28%, transparent);
+  border-color: var(--accent-hover);
   background: var(--panel-solid);
 }
 
@@ -381,13 +366,15 @@ h2 {
   width: 42px;
   height: 42px;
   border-radius: 8px;
-  color: white;
-  background: var(--accent);
+  color: var(--accent);
+  background: var(--icon-bg);
+  font-size: 20px;
 }
 
 .contact-card > svg,
 .contact-arrow {
   flex: 0 0 auto;
+  margin-left: auto;
   width: 20px;
   height: 20px;
   color: var(--muted);
@@ -396,7 +383,6 @@ h2 {
 .primary-card .contact-icon {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
 }
 
 .contact-copy {
@@ -436,9 +422,19 @@ h2 {
   overflow-wrap: normal;
 }
 
-.contact-arrow {
+.primary-card .contact-arrow {
   margin-top: auto;
-  margin-left: auto;
+}
+
+.project-image-icon {
+  background: transparent;
+}
+
+.project-image-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .info-band {

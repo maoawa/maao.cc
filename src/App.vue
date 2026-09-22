@@ -1,6 +1,7 @@
 <script setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch, watchEffect } from 'vue';
 import { useI18n } from 'vue-i18n';
+import SiteIcon from './SiteIcon.vue';
 import {
   faBilibili,
   faDiscord,
@@ -14,17 +15,17 @@ import {
   faXTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 import {
-  faBlog,
-  faCameraRetro,
-  faChevronRight,
-  faEnvelope,
-  faGlobe,
-  faLanguage,
-  faMessage,
-  faPhone,
-  faQrcode,
-  faTerminal,
-} from '@fortawesome/free-solid-svg-icons';
+  Rss,
+  Camera,
+  ChevronRight,
+  Mail,
+  Globe,
+  Languages,
+  MessageCircle,
+  Phone,
+  QrCode,
+  Terminal,
+} from '@lucide/vue';
 
 const { locale, t, tm } = useI18n();
 const showQr = ref(false);
@@ -134,7 +135,7 @@ const primaryContacts = [
   },
   {
     key: 'email',
-    icon: faEnvelope,
+    icon: Mail,
     protected: 'email',
   },
 ];
@@ -142,7 +143,7 @@ const primaryContacts = [
 const otherContacts = [
   {
     key: 'imessage',
-    icon: faMessage,
+    icon: MessageCircle,
     protected: 'imessage',
   },
   { key: 'github', icon: faGithub, href: 'https://github.com/maoawa' },
@@ -151,12 +152,12 @@ const otherContacts = [
   { key: 'steam', icon: faSteam, href: 'https://steamcommunity.com/id/WinMEMZ' },
   {
     key: 'phoneUs',
-    icon: faPhone,
+    icon: Phone,
     protected: 'phoneUs',
   },
   {
     key: 'phoneUk',
-    icon: faPhone,
+    icon: Phone,
     protected: 'phoneUk',
   },
 ];
@@ -167,15 +168,16 @@ const mainlandContacts = [
   { key: 'bilibili', icon: faBilibili, href: 'https://space.bilibili.com/417031122' },
   {
     key: 'phone',
-    icon: faPhone,
+    icon: Phone,
     protected: 'phone',
   },
 ];
 
 const projects = [
-  { key: 'vrchat', icon: faCameraRetro, href: 'https://vrchat.maao.cc/', urlLabel: 'vrchat.maao.cc' },
-  { key: 'enBlog', icon: faGlobe, href: 'https://marsinside.com/', urlLabel: 'marsinside.com' },
-  { key: 'cnBlog', icon: faBlog, href: 'https://www.maodream.com/', urlLabel: 'maodream.com' },
+  { key: 'facemo', image: '/assets/facemo.svg', href: 'https://maao.cc/facemo/', urlLabel: 'maao.cc/facemo' },
+  { key: 'vrchat', icon: Camera, href: 'https://vrchat.maao.cc/', urlLabel: 'vrchat.maao.cc' },
+  { key: 'enBlog', icon: Globe, href: 'https://marsinside.com/', urlLabel: 'marsinside.com' },
+  { key: 'cnBlog', icon: Rss, href: 'https://www.maodream.com/', urlLabel: 'maodream.com' },
 ];
 
 const terminalLines = computed(() => tm('terminalLines'));
@@ -270,14 +272,6 @@ function openProtectedContact(contact) {
   window.location.href = `${scheme}:${value}`;
 }
 
-function iconViewBox(icon) {
-  return `0 0 ${icon.icon[0]} ${icon.icon[1]}`;
-}
-
-function iconPaths(icon) {
-  const data = icon.icon[4];
-  return Array.isArray(data) ? data : [data];
-}
 </script>
 
 <template>
@@ -287,17 +281,13 @@ function iconPaths(icon) {
     <header class="topbar">
       <a class="brand" href="/" aria-label="maao.cc">
         <span class="brand-mark">
-          <svg :viewBox="iconViewBox(faTerminal)" aria-hidden="true">
-            <path v-for="path in iconPaths(faTerminal)" :key="path" :d="path" />
-          </svg>
+          <SiteIcon :icon="Terminal" />
         </span>
         <span>maao.cc</span>
       </a>
 
       <label class="language-picker">
-        <svg :viewBox="iconViewBox(faLanguage)" aria-hidden="true">
-          <path v-for="path in iconPaths(faLanguage)" :key="path" :d="path" />
-        </svg>
+        <SiteIcon :icon="Languages" />
         <span class="sr-only">{{ t('chooseLanguage') }}</span>
         <select :value="languagePreference" :aria-label="t('chooseLanguage')" @change="selectLocale($event.target.value)">
           <option v-for="language in languageOptions" :key="language.code" :value="language.code">
@@ -310,7 +300,7 @@ function iconPaths(icon) {
     <section class="hero">
       <div class="hero-copy">
         <p class="eyebrow">{{ t('eyebrow') }}</p>
-        <h1 ref="titleElement" class="rainbow-title">
+        <h1 ref="titleElement" class="intro-title">
           <span v-for="line in titleLines" :key="line">{{ line }}</span>
         </h1>
         <p class="intro-line">
@@ -356,18 +346,14 @@ function iconPaths(icon) {
           @click="contact.qr ? openQr() : contact.protected ? openProtectedContact(contact) : undefined"
         >
           <span class="contact-icon">
-            <svg :viewBox="iconViewBox(contact.icon)" aria-hidden="true">
-              <path v-for="path in iconPaths(contact.icon)" :key="path" :d="path" />
-            </svg>
+            <SiteIcon :icon="contact.icon" />
           </span>
           <span class="contact-copy">
             <strong>{{ labelFor(contact, 'label') }}</strong>
             <code>{{ displayValue(contact) }}</code>
             <small v-if="contact.protected" class="tap-hint">{{ t('protectedHint') }}</small>
           </span>
-          <svg class="contact-arrow" :viewBox="iconViewBox(contact.qr ? faQrcode : faChevronRight)" aria-hidden="true">
-            <path v-for="path in iconPaths(contact.qr ? faQrcode : faChevronRight)" :key="path" :d="path" />
-          </svg>
+          <SiteIcon class="contact-arrow" :icon="contact.qr ? QrCode : ChevronRight" />
         </component>
       </div>
 
@@ -392,9 +378,7 @@ function iconPaths(icon) {
           @click="contact.protected ? openProtectedContact(contact) : undefined"
         >
           <span class="contact-icon">
-            <svg :viewBox="iconViewBox(contact.icon)" aria-hidden="true">
-              <path v-for="path in iconPaths(contact.icon)" :key="path" :d="path" />
-            </svg>
+            <SiteIcon :icon="contact.icon" />
           </span>
           <span class="contact-copy">
             <strong>{{ labelFor(contact, 'label') }}</strong>
@@ -402,9 +386,7 @@ function iconPaths(icon) {
             <code>{{ displayValue(contact) }}</code>
             <small v-if="contact.protected" class="tap-hint">{{ t('protectedHint') }}</small>
           </span>
-          <svg class="contact-arrow" :viewBox="iconViewBox(faChevronRight)" aria-hidden="true">
-            <path v-for="path in iconPaths(faChevronRight)" :key="path" :d="path" />
-          </svg>
+          <SiteIcon class="contact-arrow" :icon="ChevronRight" />
         </component>
       </div>
 
@@ -426,18 +408,14 @@ function iconPaths(icon) {
           @click="contact.protected ? openProtectedContact(contact) : undefined"
         >
           <span class="contact-icon">
-            <svg :viewBox="iconViewBox(contact.icon)" aria-hidden="true">
-              <path v-for="path in iconPaths(contact.icon)" :key="path" :d="path" />
-            </svg>
+            <SiteIcon :icon="contact.icon" />
           </span>
           <span class="contact-copy">
             <strong>{{ labelFor(contact, 'label') }}</strong>
             <code>{{ displayValue(contact) }}</code>
             <small v-if="contact.protected" class="tap-hint">{{ t('protectedHint') }}</small>
           </span>
-          <svg :viewBox="iconViewBox(faChevronRight)" aria-hidden="true">
-            <path v-for="path in iconPaths(faChevronRight)" :key="path" :d="path" />
-          </svg>
+          <SiteIcon :icon="ChevronRight" />
         </component>
       </div>
     </section>
@@ -465,19 +443,16 @@ function iconPaths(icon) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <span class="contact-icon">
-            <svg :viewBox="iconViewBox(project.icon)" aria-hidden="true">
-              <path v-for="path in iconPaths(project.icon)" :key="path" :d="path" />
-            </svg>
+          <span class="contact-icon" :class="{ 'project-image-icon': project.image }">
+            <img v-if="project.image" :src="project.image" alt="" width="42" height="42" />
+            <SiteIcon v-else :icon="project.icon" />
           </span>
           <span class="contact-copy">
             <strong>{{ t(`projects.${project.key}.label`) }}</strong>
             <small>{{ t(`projects.${project.key}.detail`) }}</small>
             <code>{{ project.urlLabel }}</code>
           </span>
-          <svg :viewBox="iconViewBox(faChevronRight)" aria-hidden="true">
-            <path v-for="path in iconPaths(faChevronRight)" :key="path" :d="path" />
-          </svg>
+          <SiteIcon :icon="ChevronRight" />
         </a>
       </div>
     </section>
@@ -501,18 +476,14 @@ function iconPaths(icon) {
           @click="contact.qr ? openQr() : contact.protected ? openProtectedContact(contact) : undefined"
         >
           <span class="contact-icon">
-            <svg :viewBox="iconViewBox(contact.icon)" aria-hidden="true">
-              <path v-for="path in iconPaths(contact.icon)" :key="path" :d="path" />
-            </svg>
+            <SiteIcon :icon="contact.icon" />
           </span>
           <span class="contact-copy">
             <strong>{{ labelFor(contact, 'label') }}</strong>
             <code>{{ displayValue(contact) }}</code>
             <small v-if="contact.protected" class="tap-hint">{{ t('protectedHint') }}</small>
           </span>
-          <svg class="contact-arrow" :viewBox="iconViewBox(contact.qr ? faQrcode : faChevronRight)" aria-hidden="true">
-            <path v-for="path in iconPaths(contact.qr ? faQrcode : faChevronRight)" :key="path" :d="path" />
-          </svg>
+          <SiteIcon class="contact-arrow" :icon="contact.qr ? QrCode : ChevronRight" />
         </component>
       </div>
 
