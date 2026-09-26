@@ -72,7 +72,7 @@ const languageOptions = computed(() => [
 ]);
 
 const contactValues = {
-  discord: 'winmemzqwq',
+  discord: 'maoawa',
   x: '@winmemzqwq',
   telegram: '@maoawa',
   email: '',
